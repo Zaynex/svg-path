@@ -1,15 +1,38 @@
 {
-  "name": "svg",
+  "name": "svg-path",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "devDependencies": {
+    "@typescript-eslint/parser": "^2.24.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
     "parcel": "^1.12.4",
+    "prettier": "^2.0.1",
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "lint": "yarn lint:eslint",
+    "fix": "yarn fix:prettier && yarn fix:eslint",
+    "lint:prettier": "prettier --list-different \"**/*.{css,md,js,jsx,json,ts,tsx}\"",
+    "lint:eslint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:prettier": "yarn lint:prettier --write"
   },
-  "author": "",
-  "license": "ISC"
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "npm run fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "author": "zaynex",
+  "license": "MIT"
 }
